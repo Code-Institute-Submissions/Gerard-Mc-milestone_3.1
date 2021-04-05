@@ -1,63 +1,74 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="container-fluid col-12 text-center">
+    <div class="boder-navy p-5 border-radius-5px">
 
-    <h3 class="mb-3"><strong>Username: </strong> {{ user.name }}</h3>
-    <!-- Below content appears if the user has already selected a GPU -->
-    {% if user.gpu %}
-    <p><strong>GPU: </strong> {{ user.gpu }} <a href="#" id="edit" onclick="edit()"> Edit</a></p>
-    <div id="add-gpu" class="w-100">
-        <!-- Below, the user can search for a gpu in the database -->
-        <form id="profile-submit" class="w-100" action="{{ url_for('search_gpu') }}" method="post">
-            <input placeholder="Search GPUs" type="text-gpu" name="user-gpu" id="search_gpu_input" minlength="3"
-                class="validate">
-            <button for="profile-submit" class="" id="gpu_select_button" type="submit">
-                Search
-                GPU</button>
-        </form>
-    </div>
-    <!-- Below, the user can select from the search results -->
-    <div class="col-4 offset-4" id="gpu_list">
-        {% for x in gpu %}
-        <form id="submit_to_python" method="post" action="{{ url_for('submit') }}">
-            <hr>
-            <div class="d-block">
-                <textarea id="gpu-choice" style="display: none" class="hidden-text"
-                    name="hidden-text-gpu-model">{{ x.model }}</textarea>
-                <!-- On submit, the users GPU field is updated -->
-                <button for="submit_to_python" id="{{ x.model }}" type="submit">{{ x.model }}</button>
-            </div>
-        </form>
-        {% endfor %}
-    </div>
+        <h3 class="mb-3"><strong>Username: </strong> {{ user.name }}</h3>
+        <!-- Below content appears if the user has already selected a GPU -->
+        {% if user.gpu %}
+        <p><strong>GPU: </strong> {{ user.gpu }} <a href="#" id="edit" onclick="edit()"> Edit</a></p>
+        <div id="add-gpu" class="w-100">
+            <!-- Below, the user can search for a gpu in the database -->
+            <form id="profile-submit" class="w-100" action="{{ url_for('search_gpu') }}" method="post">
+                <input placeholder="Search GPUs" type="text-gpu" name="user-gpu" id="search_gpu_input" minlength="3"
+                    class="validate">
+                <button for="profile-submit" class="" id="gpu_select_button" type="submit">
+                    Search
+                    GPU</button>
+            </form>
+        </div>
+        <!-- Below, the user can select from the search results -->
+        <div class="col-4 offset-4" id="gpu_list">
+            {% for x in gpu %}
+            <form id="submit_to_python" method="post" action="{{ url_for('submit') }}">
+                <hr>
+                <div class="d-block">
+                    <textarea id="gpu-choice" style="display: none" class="hidden-text"
+                        name="hidden-text-gpu-model">{{ x.model }}</textarea>
+                    <!-- On submit, the users GPU field is updated -->
+                    <button for="submit_to_python" id="{{ x.model }}" type="submit">{{ x.model }}</button>
+                </div>
+            </form>
+            {% endfor %}
+            <p>
+                {% if display_gpu %}
 
-    {% else %}
-    <!-- Below content appears if the user has not selected a GPU -->
-    <p><strong>GPU: </strong> <a href="#" id="edit" onclick="edit()"> Enter GPU</a></p>
-    <div id="add-gpu" class="w-100">
-        <!-- Below, the user can search for a gpu in the database -->
-        <form id="profile-submit" class="w-100" action="{{ url_for('search_gpu') }}" method="post">
-            <input placeholder="Search GPUs" type="text-gpu" name="user-gpu" id="search_gpu_input" minlength="3"
-                class="validate">
-            <button for="profile-submit" class="" id="gpu_select_button" type="submit">
-                Search
-                GPU</button>
-        </form>
-    </div>
-    <!-- Below, the user can select from the search results -->
-    <div class="col-4 offset-4" id="gpu_list">
-        {% for x in gpu %}
-        <form id="submit_to_python" method="post" action="{{ url_for('check') }}">
-            <hr>
-            <div class="d-block">
-                <textarea id="gpu-choice" style="display: none" class="hidden-text"
-                    name="hidden-text-gpu-model">{{ x.model }}</textarea>
-                <!-- On submit, the users GPU field is created -->
-                <button for="submit_to_python" id="{{ x.model }}" type="submit">{{ x.model }}</button>
-            </div>
-        </form>
-        {% endfor %}
-        {% endif %}
+              
+                {{ display_gpu }}
+              
+                {% endif %}
+            </p>
+        </div>
+
+
+        {% else %}
+        <!-- Below content appears if the user has not selected a GPU -->
+        <p><strong>GPU: </strong> <a href="#" id="edit" onclick="edit()"> Enter GPU</a></p>
+        <div id="add-gpu" class="w-100">
+            <!-- Below, the user can search for a gpu in the database -->
+            <form id="profile-submit" class="w-100" action="{{ url_for('search_gpu') }}" method="post">
+                <input placeholder="Search GPUs" type="text-gpu" name="user-gpu" id="search_gpu_input" minlength="3"
+                    class="validate">
+                <button for="profile-submit" class="" id="gpu_select_button" type="submit">
+                    Search
+                    GPU</button>
+            </form>
+        </div>
+        <!-- Below, the user can select from the search results -->
+        <div class="col-4 offset-4" id="gpu_list">
+            {% for x in gpu %}
+            <form id="submit_to_python" method="post" action="{{ url_for('submit') }}">
+                <hr>
+                <div class="d-block">
+                    <textarea id="gpu-choice" style="display: none" class="hidden-text"
+                        name="hidden-text-gpu-model">{{ x.model }}</textarea>
+                    <!-- On submit, the users GPU field is created -->
+                    <button for="submit_to_python" id="{{ x.model }}" type="submit">{{ x.model }}</button>
+                </div>
+            </form>
+            {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </section>
 <script>

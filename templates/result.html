@@ -2,18 +2,20 @@
 {% block content %}
 
 <section id="results" class="col-4 offset-4 mt-5">
-    <h1>Results</h1>
-    <h4>Can {{ user_gpu_name}} run {{ user_game_name }}?</h4>
-    <br>
-    <h5><strong>PC Minimum Requirements</strong></h5>
-    {{ steam|safe }}
-    <br>
-    <div class="boder-navy p-3">
-    <p><strong>GPU Requirements:</strong><br>{{ gpus  }}</p>
-    <p><strong>User GPU:</strong> {{ user_gpu_name}} </p>
-    <p><strong>Game Name: </strong> {{ user_game_name }}</p>
-    <p><strong>Game ID: </strong> {{ user_game_id }} </p>
-    <p><strong> Can I run it? </strong>{{ info_message }}</p>
+    <div class="boder-navy p-5 border-radius-5px">
+        <h1 class="h4">Can {{ user_gpu_name}} run {{ user_game_name }}?</h1>
+        {{ steam|safe }}
+        <br>
+        <p><strong>User GPU:</strong> {{ user_gpu_name}} </p>
+        <p><strong>Game Name: </strong> {{ user_game_name }}</p>
+        <p><strong> Can I run it? </strong><u>{{ info_message }}</u></p>
+        <br>
+        {% if session.user %}
+        <p>Average user reported FPS on low settings: </p>
+        {% else %}
+        <p>Login or register to see average user FPS &nbsp;<a class="boder-navy border-radius-5px px-2 py-1" href="{{ url_for('login') }}">Log In</a> &nbsp;<a class="py-1 px-2 boder-navy border-radius-5px"
+                href="{{ url_for('register') }}">Register</a></p>
+        {% endif %}
     </div>
 </section>
 {% endblock %}
